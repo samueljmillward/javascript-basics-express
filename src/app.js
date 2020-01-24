@@ -30,14 +30,19 @@ app.get('/strings/first-characters/:string', (req, res) => {
 });
 
 app.get('/strings/first-characters/:string', (req, res) => {
+  console.log(`req.params.string ${req.params.string}`);
+  console.log(`req.params.string ${req.query.length}`);
   res.json({ result: firstCharacters(req.params.string, req.query.length) });
 });
 
 // numbers
 app.get('/numbers/add/:a/and/:b', (req, res) => {
-  const a = parseInt(req.params.a);
-  const b = parseInt(req.params.b);
-  res.json({ result: add(a, b) });
+  const a = parseInt(req.params.a, 10);
+  const b = parseInt(req.params.b, 10);
+
+  return Number.isNaN(a) || Number.isNaN(b)
+    ? res.sendStatus(400)
+    : res.status(200).json({ result: add(a, b) });
 });
 
 module.exports = app;
