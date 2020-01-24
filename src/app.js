@@ -26,13 +26,14 @@ app.get('/strings/lower/:string', (req, res) => {
 });
 
 app.get('/strings/first-characters/:string', (req, res) => {
-  res.json({ result: firstCharacter(req.params.string) });
+  if (req.query.length) {
+    return res.json({ result: firstCharacters(req.params.string, req.query.length) });
+  }
+  return res.json({ result: firstCharacter(req.params.string) });
 });
 
-app.get('/strings/first-characters/:string', (req, res) => {
-  console.log(`req.params.string ${req.params.string}`);
-  console.log(`req.params.string ${req.query.length}`);
-  res.json({ result: firstCharacters(req.params.string, req.query.length) });
+app.get('/strings/first-character/:string', (req, res) => {
+  res.json({ result: firstCharacter(req.params.string) });
 });
 
 // numbers
@@ -41,7 +42,7 @@ app.get('/numbers/add/:a/and/:b', (req, res) => {
   const b = parseInt(req.params.b, 10);
 
   return Number.isNaN(a) || Number.isNaN(b)
-    ? res.sendStatus(400)
+    ? res.status(400).json({ error: 'Parameters must be valid numbers.' })
     : res.status(200).json({ result: add(a, b) });
 });
 
