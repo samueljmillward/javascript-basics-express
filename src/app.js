@@ -57,10 +57,6 @@ app.get('/numbers/subtract/:a/from/:b', (req, res) => {
     : res.status(200).json({ result: subtract(b, a) });
 });
 
-// app.post('/numbers/multiply', (req, res) => {
-//   res.status(200).json({ result: multiply(req.body.a, req.body.b) });
-// });
-
 app.post('/numbers/multiply', (req, res) => {
   const a = parseInt(req.body.a, 10);
   const b = parseInt(req.body.b, 10);
@@ -72,21 +68,6 @@ app.post('/numbers/multiply', (req, res) => {
   } else {
     res.status(200).json({ result: multiply(a, b) });
   }
-
-  // return Number.isNaN(a) || Number.isNaN(b)
-  //   ? res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' })
-  //   : res.status(200).json({ result: multiply(req.body.a, req.body.b) });
 });
-
-// app.post('/numbers/multiply', (req, res) => {
-//   const a = parseInt(req.body, 10);
-//   const b = parseInt(req.body, 10);
-
-//   return Number.isNaN(a) || Number.isNaN(b)
-//     ? res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' })
-//     : res.status(200).json({ result: multiply(req.body.a, req.body.b) })
-//     ? res.status(400).json({ error: 'Parameters "a" and "b" are required.' })
-//     : res.status(200).json({ result: multiply(req.body.a, req.body.b) });
-// });
 
 module.exports = app;
